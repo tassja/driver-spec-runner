@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SpecBuildService } from '../services/build.service';
 
@@ -11,6 +13,10 @@ import { SpecBuildService } from '../services/build.service';
                     {{ repo }}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="mb-2 mx-2">
+            <i matPrefix class="material-icons">search</i>
+            <input matInput [(ngModel)]="search_str" (ngModelChange)="setFilter($event)" placeholder="Filter drivers..." />
         </mat-form-field>
         <div class="overflow-y-auto flex-1 border-t border-gray-300">
             <ng-container *ngIf="(drivers | async)?.length; else empty_state">
@@ -74,16 +80,25 @@ import { SpecBuildService } from '../services/build.service';
     ],
 })
 export class SidebarComponent {
+    private _search_filter = new BehaviorSubject<string>('');
+
     public readonly repos = this._build.repositories;
-    public readonly drivers = this._build.driver_list;
+    public readonly drivers = combineLatest([this._build.driver_list, this._search_filter]).pipe(map(details => {
+        const [drivers, filter] = details;
+        return drivers.filter(d => d.toLowerCase().includes(filter.toLowerCase()));
+    }));
     public readonly statues = this._build.test_statuses;
 
     public readonly setRepo = (id) => this._build.setRepository(id);
     public readonly setDriver = (id) => this._build.setDriver(id);
+    public readonly setFilter = (s) => this._search_filter.next(s);
+
+    public search_str = '';
 
     public get repo() {
         return this._build.getRepository();
     }
 
     constructor(private _build: SpecBuildService) {}
+
 }
