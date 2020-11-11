@@ -14,13 +14,13 @@ import { BaseClass } from 'src/app/common/base.class';
 @Component({
     selector: 'a-terminal',
     template: `
-        <div class="container w-full h-full overflow-hidden" #container (window:resize)="resizeTerminal()">
+        <div name="terminal" class="w-full h-full overflow-hidden" #container (window:resize)="resizeTerminal()">
             <div class="terminal" #terminal></div>
         </div>
     `,
     styles: [
         `
-            .container {
+            [name="terminal"] {
                 background-color: #212121;
             }
 

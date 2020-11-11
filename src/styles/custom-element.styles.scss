@@ -56,3 +56,12 @@ a[button],
 .xterm {
     padding: 1rem;
 }
+
+sidebar {
+    width: 0;
+    transition: width 200ms;
+
+    &.show {
+        width: 20rem;
+    }
+}

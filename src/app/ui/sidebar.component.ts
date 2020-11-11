@@ -44,7 +44,7 @@ import { SpecBuildService } from '../services/build.service';
             :host {
                 display: flex;
                 flex-direction: column;
-                width: 20rem;
+                max-width: 20rem;
             }
 
             mat-form-field {

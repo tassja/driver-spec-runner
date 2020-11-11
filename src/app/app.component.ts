@@ -4,6 +4,7 @@ import { SwUpdate } from '@angular/service-worker';
 
 import { setupCache } from './common/application';
 import { setNotifyOutlet } from './common/notifications';
+import { SpecBuildService } from './services/build.service';
 
 @Component({
     selector: 'app-root',
@@ -11,7 +12,7 @@ import { setNotifyOutlet } from './common/notifications';
         <div class="absolute inset-0 overflow-hidden flex flex-col">
             <topbar-header class="z-20"></topbar-header>
             <div class="flex flex-1 w-full" style="height: 50%">
-                <sidebar class="h-full shadow z-10"></sidebar>
+                <sidebar class="h-full shadow z-10 overflow-hidden" [class.show]="show_sidebar | async"></sidebar>
                 <div name="content" class="h-full flex-1 w-1/2 bg-gray-200 z-0">
                     <router-outlet></router-outlet>
                 </div>
@@ -26,8 +27,9 @@ import { setNotifyOutlet } from './common/notifications';
     encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
+    public readonly show_sidebar = this._build.sidebar;
 
-    constructor(private _snackbar: MatSnackBar, private _cache: SwUpdate) {}
+    constructor(private _snackbar: MatSnackBar, private _cache: SwUpdate, private _build: SpecBuildService) {}
 
     public ngOnInit(): void {
         setNotifyOutlet(this._snackbar);

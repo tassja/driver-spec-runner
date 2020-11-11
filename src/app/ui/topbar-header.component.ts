@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { SpecBuildService } from '../services/build.service';
 
 @Component({
     selector: 'topbar-header',
     template: `
+        <button mat-icon-button class="text-white" (click)="toggle()">
+            <i class="material-icons">{{ (show_sidebar | async) ? 'close' : 'menu' }}</i>
+        </button>
         <a [routerLink]="['/']" class="h-full">
             <img class="h-10" src="assets/logo-dark.svg"/>
         </a>
@@ -20,4 +24,9 @@ import { Component } from '@angular/core';
 })
 export class TopbarHeaderComponent {
 
+    public readonly show_sidebar = this._build.sidebar;
+
+    public readonly toggle = () => this._build.toggleSidebar();
+
+    constructor(private _build: SpecBuildService) {}
 }

@@ -56,6 +56,8 @@ export const LATEST_COMMIT = {
     providedIn: 'root',
 })
 export class SpecBuildService {
+    /** Currently active repository */
+    private _sidebar = new BehaviorSubject<boolean>(true);
     /** Currently available repositories */
     private _repo_list = new BehaviorSubject<string[]>([]);
     /** Currently active repository */
@@ -67,6 +69,8 @@ export class SpecBuildService {
     /** Currently active repository */
     private _test_statuses = new BehaviorSubject<HashMap<string>>({});
 
+    /** Observable of the currently available repositories */
+    public readonly sidebar = this._sidebar.asObservable();
     /** Observable of the currently available repositories */
     public readonly repositories = this._repo_list.asObservable();
     /** Observable of the currently selected repository */
@@ -114,6 +118,10 @@ export class SpecBuildService {
 
     public getDriver(): string {
         return this._active_driver.getValue();
+    }
+
+    public toggleSidebar(): void {
+        this._sidebar.next(!this._sidebar.getValue());
     }
 
     public getCommit(): RepositoryCommit {
