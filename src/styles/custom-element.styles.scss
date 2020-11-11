@@ -1,0 +1,57 @@
+
+
+
+.mat-form-field .mat-select-value {
+    position: relative;
+    top: -4px;
+}
+
+button.mat-button,
+a[button],
+.dark-mode button.mat-button,
+.dark-mode a[button] {
+    background-color: #c92366;
+    border: 1px solid #c92366;
+    color: #fff;
+    min-height: 3em;
+
+    &.inverse {
+        background-color: #fff;
+        color: #c92366;
+    }
+
+    &.success {
+        background-color: #43a047;
+        border-color: #43a047;
+    }
+
+    &.clear {
+        background: none;
+        border: none;
+        color: rgba(#000, 0.85);
+    }
+
+    &.error {
+        background: none;
+        color: #e53935;
+        border-color: #e53935;
+    }
+
+    &[disabled] {
+        background-color: #ccc;
+        border-color: rgba(#000, 0.1);
+        pointer-events: none;
+    }
+}
+
+
+
+.mat-spinner {
+    circle {
+        stroke: #c92366;
+    }
+}
+
+.xterm {
+    padding: 1rem;
+}

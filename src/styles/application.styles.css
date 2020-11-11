@@ -1,0 +1,17 @@
+.formatted-driver-name {
+    display: flex;
+    align-items: center;
+}
+
+.formatted-driver-name .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.2em;
+    width: 1.2em;
+    font-size: 1.5em;
+}
+
+.xterm-helper-textarea {
+    opacity: 0;
+}
