@@ -10,6 +10,7 @@ import { SpecBuildService } from '../services/build.service';
         <a [routerLink]="['/']" class="h-full">
             <img class="h-10" src="assets/logo-dark.svg"/>
         </a>
+        <h2 class="px-4 text-white">Driver Spec Runner</h2>
         <div class="flex-1 min-w-0"></div>
     `,
     styles: [`
@@ -19,6 +20,10 @@ import { SpecBuildService } from '../services/build.service';
             padding: .5rem;
             width: 100%;
             background-color: #0A0D2E;
+        }
+
+        h2 {
+            margin: 0;
         }
     `]
 })
