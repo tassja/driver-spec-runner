@@ -50,7 +50,7 @@ jobs:
       with:
         repository: PlaceOS/drivers
         branch: master
-        source_folder: dist
+        source_folder: dist/driver-spec-runner
         target_folder: www
         commit_message: >
           build(test-runner): CI build from ${{ steps.vars.outputs.sha_short }}
