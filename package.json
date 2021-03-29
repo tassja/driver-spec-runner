@@ -34,6 +34,7 @@
     "@angular/compiler-cli": "~10.0.2",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0-next.1",
+    "material-design-icons": "^3.0.1",
     "postcss": "8.1.6",
     "postcss-import": "13.0.0",
     "postcss-loader": "4.0.4",
