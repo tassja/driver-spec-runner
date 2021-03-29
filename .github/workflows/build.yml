@@ -25,19 +25,20 @@ jobs:
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.1
+      uses: actions/setup-node@v1.4.4
+      with:
+            node-version: '13'
 
     - name: Cache node modules
-      uses: actions/cache@v1
-      env:
-        cache-name: cache-node-modules
+      id: cache
+      uses: actions/cache@v2
       with:
         path: node_modules
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
     - name: Install node modules
       run: npm install && npm i -g @angular/cli
