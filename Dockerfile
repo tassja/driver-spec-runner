@@ -1,4 +1,16 @@
+ARG node_version=12
 ARG crystal_version=1.0.0
+
+FROM node:${node_version}-alpine as frontend-build
+COPY /frontend /src/frontend
+WORKDIR /src/frontend
+COPY package*.json ./
+
+RUN npm install -g @angular/cli @angular-builders/custom-webpack && npm install
+RUN npx ng build --prod
+
+###########################
+
 FROM crystallang/crystal:${crystal_version}-alpine
 WORKDIR /src
 
@@ -16,15 +28,15 @@ RUN update-ca-certificates
 
 RUN mkdir -p /src/bin/drivers
 
-COPY shard.yml /src/shard.yml
-COPY shard.override.yml /src/shard.override.yml
-COPY shard.lock /src/shard.lock
+COPY ./backend/shard.yml /src/shard.yml
+COPY ./backend/shard.override.yml /src/shard.override.yml
+COPY ./backend/shard.lock /src/shard.lock
 
 RUN shards install --production --ignore-crystal-version
 
-COPY src /src/src
-COPY spec /src/spec
-COPY www /src/www
+COPY ./backend/src /src/src
+COPY ./backend/spec /src/spec
+COPY --from=frontend-build ./src/frontend/dist/driver-spec-runner /src/www
 
 # Build App
 RUN shards build --error-trace --release --production --ignore-crystal-version
