@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ seperate-test-runner ]
 
 jobs:
   build:
