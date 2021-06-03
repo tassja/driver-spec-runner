@@ -5,7 +5,7 @@ FROM node:${node_version}-alpine as frontend-build
 WORKDIR /frontend
 COPY /frontend/package*.json  /frontend
 
-RUN npm install -g @angular/cli @angular-builders/custom-webpack && npm clean--install
+RUN npm install -g @angular/cli @angular-builders/custom-webpack && npm clean-install
 
 # Copy source after install dependencies
 COPY frontend /frontend
