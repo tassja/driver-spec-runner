@@ -3,9 +3,15 @@ name: Build
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
+    matrix:
+        crystal:
+          - latest
+          - nightly
     runs-on: ubuntu-latest
     name: Prepare
     steps:
@@ -40,7 +46,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:latest.${{ steps.versions.outputs.TAG }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test/${{ matrix.crystal }}:${{ steps.versions.outputs.TAG }}
         labels: |
           org.opencontainers.image.vendor=Place Technology Limited
           org.opencontainers.image.version=${{ steps.versions.outputs.TAG }}
