@@ -15,7 +15,7 @@ RUN npx ng build --prod
 ###########################
 
 FROM crystallang/crystal:${crystal_version}-alpine
-WORKDIR /src
+WORKDIR /app
 
 # Install the latest version of LibSSH2 and the GDB debugger
 RUN apk add --no-cache \
@@ -29,21 +29,21 @@ RUN apk add --no-cache \
 # Add trusted CAs for communicating with external services
 RUN update-ca-certificates
 
-RUN mkdir -p /src/bin/drivers
+RUN mkdir -p /app/bin/drivers
 
-COPY ./backend/shard.yml /src/shard.yml
-COPY ./backend/shard.override.yml /src/shard.override.yml
-COPY ./backend/shard.lock /src/shard.lock
+COPY ./backend/shard.yml /app/shard.yml
+COPY ./backend/shard.override.yml /app/shard.override.yml
+COPY ./backend/shard.lock /app/shard.lock
 
 RUN shards install --production --ignore-crystal-version
 
-COPY ./backend/src /src/src
-COPY --from=frontend-build /frontend/dist/driver-spec-runner /src/www
+COPY ./backend/src /app/src
+COPY --from=frontend-build /frontend/dist/driver-spec-runner /app/www
 
 # Build App
 RUN shards build --error-trace --release --production --ignore-crystal-version
 
 # Run the app binding on port 8080
 EXPOSE 8080
-ENTRYPOINT ["/src/bin/test-harness"]
-CMD ["/src/bin/test-harness", "-b", "0.0.0.0", "-p", "8080"]
+ENTRYPOINT ["/app/bin/test-harness"]
+CMD ["/app/bin/test-harness", "-b", "0.0.0.0", "-p", "8080"]
