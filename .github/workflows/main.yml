@@ -8,6 +8,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Prepare
+    strategy:
+      matrix:
+        crystal:
+          - latest
+          - nightly
     steps:
     -
       name: Checkout release
@@ -40,7 +45,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:latest.${{ steps.versions.outputs.TAG }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test/${{matrix.crystal}}:${{ steps.versions.outputs.TAG }}
         labels: |
           org.opencontainers.image.vendor=Place Technology Limited
           org.opencontainers.image.version=${{ steps.versions.outputs.TAG }}
