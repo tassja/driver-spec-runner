@@ -38,7 +38,7 @@ COPY ./backend/shard.lock /src/shard.lock
 RUN shards install --production --ignore-crystal-version
 
 COPY ./backend/src /src/src
-COPY --from=frontend-build ./src/frontend/dist/driver-spec-runner /src/www
+COPY --from=frontend-build /frontend/dist/driver-spec-runner /src/www
 
 # Build App
 RUN shards build --error-trace --release --production --ignore-crystal-version
