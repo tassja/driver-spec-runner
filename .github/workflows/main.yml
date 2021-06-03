@@ -47,7 +47,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test/${{matrix.crystal}}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:${{matrix.crystal}}
         labels: |
           org.opencontainers.image.vendor=Place Technology Limited
           org.opencontainers.image.version=${{ steps.versions.outputs.TAG }}
