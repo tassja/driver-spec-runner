@@ -3,6 +3,8 @@ name: Build
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron: "0 0 * * 0" # Sunday at midnight
 
 jobs:
   build:
@@ -47,7 +49,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:crystal-${{matrix.crystal}}.${{ steps.versions.outputs.TAG }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:crystal-${{matrix.crystal}}
         labels: |
           org.opencontainers.image.vendor=Place Technology Limited
           org.opencontainers.image.version=${{ steps.versions.outputs.TAG }}
