@@ -25,7 +25,7 @@ jobs:
       id: versions
       run: |
         echo ::debug::Generating platform version
-        offset=$(git rev-list --count main)
+        offset=$(git rev-list --count master)
         echo ::set-output name=TAG::$offset
     - 
       name: Set up Docker Buildx
