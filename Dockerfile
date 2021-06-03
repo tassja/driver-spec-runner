@@ -2,11 +2,14 @@ ARG node_version=12
 ARG crystal_version=1.0.0
 
 FROM node:${node_version}-alpine as frontend-build
-COPY /frontend /src/frontend
-WORKDIR /src/frontend
-COPY package*.json ./
+WORKDIR /frontend
+COPY /frontend/package*.json  /frontend
 
-RUN npm install -g @angular/cli @angular-builders/custom-webpack && npm install
+RUN npm install -g @angular/cli @angular-builders/custom-webpack && npm clean--install
+
+# Copy source after install dependencies
+COPY frontend /frontend
+
 RUN npx ng build --prod
 
 ###########################
