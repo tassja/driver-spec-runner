@@ -15,7 +15,7 @@ RUN npx ng build --prod
 
 FROM crystallang/crystal:${crystal_version}-alpine
 
-WORKDIR /src
+WORKDIR /app
 
 # Install the latest version of LibSSH2 and the GDB debugger
 RUN apk add --no-cache \
@@ -29,23 +29,23 @@ RUN apk add --no-cache \
 # Add trusted CAs for communicating with external services
 RUN update-ca-certificates
 
-RUN mkdir -p /src/bin/drivers
+RUN mkdir -p /app/bin/drivers
 
 RUN apk add --no-cache bash
 
-COPY ./shard.yml /src/shard.yml
-COPY ./shard.override.yml /src/shard.override.yml
-COPY ./shard.lock /src/shard.lock
+COPY ./shard.yml /app/shard.yml
+COPY ./shard.override.yml /app/shard.override.yml
+COPY ./shard.lock /app/shard.lock
 
 RUN shards install --production --ignore-crystal-version
 
-COPY ./src /src/src
-COPY ./spec /src/spec
-COPY --from=frontend-build /frontend/dist/driver-spec-runner /src/www
+COPY ./src /app/src
+COPY ./spec /app/spec
+COPY --from=frontend-build /frontend/dist/driver-spec-runner /app/www
 
 # Build src
 RUN shards build --error-trace --release --production --ignore-crystal-version
 
-COPY scripts/* /src/scripts/
+COPY scripts/* /app/scripts/
 
-CMD /src/scripts/entrypoint.sh
+CMD /app/scripts/entrypoint.sh
