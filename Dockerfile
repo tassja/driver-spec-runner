@@ -31,13 +31,13 @@ RUN update-ca-certificates
 
 RUN mkdir -p /app/bin/drivers
 
-COPY ./backend/shard.yml /app/shard.yml
-COPY ./backend/shard.override.yml /app/shard.override.yml
-COPY ./backend/shard.lock /app/shard.lock
+COPY ./shard.yml /app/shard.yml
+COPY ./shard.override.yml /app/shard.override.yml
+COPY ./shard.lock /app/shard.lock
 
 RUN shards install --production --ignore-crystal-version
 
-COPY ./backend/src /app/src
+COPY ./src /app/src
 COPY --from=frontend-build /frontend/dist/driver-spec-runner /app/www
 
 # Build App
