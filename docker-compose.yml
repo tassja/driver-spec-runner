@@ -1,10 +1,7 @@
 version: "3.7"
 
-# YAML Anchors
-
 x-deployment-env: &deployment-env
   ENV: ${ENV:-development}
-  SG_ENV: ${SG_ENV:-development}
   TZ: $TZ
 
 x-redis-client-env: &redis-client-env
@@ -23,9 +20,14 @@ services:
       - ./.git:/src/.git
       - ./drivers/:/src/drivers/
       - ./repositories/:/src/repositories/
-      - ./lib/:/lib/local-shards/
     depends_on:
       - redis
+    environment:
+      # Service Hosts
+      << : *redis-client-env
+      # Environment
+      GITHUB_ACTION: ${GITHUB_ACTION:-}
+      << : *deployment-env
 
   redis:
     image: eqalpha/keydb
