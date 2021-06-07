@@ -22,8 +22,7 @@ services:
       - ./backend/src:/app/src
       - ./.git:/app/.git
       - ./scripts/drivers/:/app/drivers/
-      #- #./backend/repositories/:/app/repositories/
-      - ./backend/lib/:/lib/local-shards/
+      - ./backend/repositories/:/app/repositories/
     depends_on:
       - redis
 
