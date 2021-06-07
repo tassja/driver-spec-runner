@@ -33,14 +33,14 @@ RUN mkdir -p /src/bin/drivers
 
 RUN apk add --no-cache bash
 
-COPY ./backend/shard.yml /src/shard.yml
-COPY ./backend/shard.override.yml /src/shard.override.yml
-COPY ./backend/shard.lock /src/shard.lock
+COPY ./shard.yml /src/shard.yml
+COPY ./shard.override.yml /src/shard.override.yml
+COPY ./shard.lock /src/shard.lock
 
 RUN shards install --production --ignore-crystal-version
 
-COPY ./backend/src /src/src
-COPY ./backend/spec /src/spec
+COPY ./src /src/src
+COPY ./spec /src/spec
 COPY --from=frontend-build /frontend/dist/driver-spec-runner /src/www
 
 # Build src
