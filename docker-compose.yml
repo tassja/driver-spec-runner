@@ -19,7 +19,6 @@ services:
       - ./src:/app/src
       - ./.git:/app/.git
       - ./drivers/:/app/drivers/
-      - ./repositories/:/app/repositories/
     depends_on:
       - redis
     environment:
