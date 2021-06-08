@@ -40,6 +40,8 @@ RUN shards install --production --ignore-crystal-version
 COPY ./src /app/src
 COPY --from=frontend-build /frontend/dist/driver-spec-runner /app/www
 
+ENV PATH "$PATH:/app/bin"
+
 # Build App
 RUN shards build --error-trace --release --production --ignore-crystal-version
 
