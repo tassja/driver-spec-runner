@@ -49,6 +49,8 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
+        env:
+          CRYSTAL_VERSION: ${{ matrix.crystal }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:crystal-${{matrix.crystal}}
         labels: |
           org.opencontainers.image.vendor=Place Technology Limited

@@ -11,10 +11,4 @@ require "placeos-compiler"
 
 Spec.before_suite do
   ::Log.setup("*", :debug, ActionController.default_backend)
-
-  # Clone the private drivers
-  PlaceOS::Compiler.clone_and_install(
-    "private_drivers",
-    "https://github.com/placeos/private-drivers"
-  )
 end

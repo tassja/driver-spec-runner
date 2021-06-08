@@ -1,7 +1,7 @@
 require "./application"
 
 module PlaceOS::Drivers::Api
-  class Welcome < Application
+  class Root < Application
     base "/"
 
     STATIC_FILE_PATH = File.join(File.expand_path(ENV["PUBLIC_WWW_PATH"]? || "./www"), "index.html")
