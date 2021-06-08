@@ -49,7 +49,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        env:
+        args:
           CRYSTAL_VERSION: ${{ matrix.crystal }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/drivers-test:crystal-${{matrix.crystal}}
         labels: |
