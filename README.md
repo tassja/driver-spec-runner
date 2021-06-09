@@ -7,7 +7,7 @@ A spec runner for PlaceOS drivers
 To test the spec runner is working:
 ``` ./test ```
 
-To test the frontend only see the frontend [readme](frontend_README.md)
+To test the frontend only see the frontend [readme](https://github.com/PlaceOS/driver-spec-runner/blob/master/frontend/frontend_README.md)
 
 To spin up the test harness in browser follow the steps in Development in the [drivers](https://github.com/PlaceOS/drivers) repo
 
