@@ -27,7 +27,7 @@ jobs:
     container: crystallang/crystal:${{ matrix.crystal }}
     steps:
     - uses: actions/checkout@v2
-      - name: Run docker-compose test environment
-        run: ./test
-        env:
+    - name: Run docker-compose test environment
+      run: ./test
+      env:
           CRYSTAL_VERSION: ${{ matrix.crystal }}
